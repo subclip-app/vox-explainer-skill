@@ -80,7 +80,7 @@ One 16:9 keyframe per beat, all in the same look. Read `references/vox-style-gui
 
 ## Stage 4: Animation
 
-Turn keyframes into short silent clips, then swap each in place. Animation is the biggest cost: unless the creator wants every beat animated, animate the hook, the key idea and the ending (3 beats) and give the other stills a slow push-in (free).
+Turn keyframes into short silent clips, then swap each in place. Animation is the biggest cost: for a cheap draft animate 3 consecutive beats from the start and give the rest a slow push-in (free); for the finished film animate every beat. Ask which the creator wants.
 
 - Default (budget): `generate_ai_media` with `kind: "video"`, `modelId: "p-video-2"`, `resolution: "720p"`, `aspectRatio: "16:9"`, `durationSeconds` = beat length + 0.5 s rounded up (1 to 20 s), `generateAudio: false`, `settings: { "save_audio": false }`, `sourceAssets: [{ sourceItemId: <keyframe item>, role: "start_frame" }]`.
 - Premium hero beats: `gemini-omni-1.1` (image-to-video, automatic length up to 10 s, about 5x the price).

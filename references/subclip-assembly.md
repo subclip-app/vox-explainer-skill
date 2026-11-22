@@ -20,6 +20,9 @@ All calls take the film's `projectId`. Make one editing call at a time.
 
 ## 3. On-frame titles (when not drawn into the keyframe)
 
+Look first: `get_timeline_contact_sheet` with `times` across the beat, find the empty paper away from the subject and away from the caption strip at the bottom, and place the title there. Render the same times again after placing. Titles and captions must never overlap or cover the key element.
+
+
 - `add_text_overlay` with the exact words, `startTime` = beat start + 0.4, `duration` = until the beat window ends, placed in the empty paper area (`x`, `y` in percent).
 - `update_text_item`: a bold condensed font, cream or white text, the accent colour as background (like a strip of tape), slight rotation (-3 to 3 degrees). Keep under 5 words.
 
@@ -28,6 +31,9 @@ All calls take the film's `projectId`. Make one editing call at a time.
 - Run before adding music, so Whisper hears only narration: `transcribe_project` with `mode: "local"`, `language`, `allTimelineClips: true`, `captionPreset: "authority"` (or `bold-clean`), `highlight: "none"`.
 - External MCP clients poll `get_transcription_status` with the returned `jobId`.
 - Fix misheard names with `update_caption_words`. Vox look: white, bold, bottom centre, at most 2 lines.
+- Do not caption all narration in one run: local Whisper can squeeze words at its 20 s chunk boundaries. Caption each narration item with `audioItemId`.
+- Set style after the preset: apply the preset first, then `update_caption_style` with `positionY` about 90 and a dark backing (`backgroundColor`, opacity 85) so white text reads on cream paper. Re-applying a preset resets the position.
+- Check `at: "caption-pages"` on a contact sheet: captions must sit clear of titles and subjects.
 
 ## 5. Music
 
