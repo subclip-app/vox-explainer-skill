@@ -105,7 +105,7 @@ Read `references/subclip-assembly.md` for exact calls. The sequence:
 
 1. **Titles:** add any on-frame title that is not drawn into a keyframe with `add_text_overlay` (see the reference).
 2. **Check the timeline:** narration items at their beat times, one clip per beat covering its window with no gaps; `set_project_duration` to the last beat end + 1.5 s.
-3. **Captions before music:** `transcribe_project` with `mode: "local"`, `allTimelineClips: true`, `captionPreset: "authority"` (or `bold-clean`), `highlight: "none"`. Whisper hears only the narration at this point, so timing is word-accurate. Fix misheard names with `update_caption_words`.
+3. **Captions before music:** `transcribe_project` once per narration item (`audioItemId`), `mode: "local"`, `captionPreset: "authority"`, `highlight: "none"`, then the style (see the reference). Per item, timing is word-accurate. Fix misheard names with `update_caption_words`.
 4. **Music:** `import_ai_operation_to_timeline` at 0, then `update_audio_item` with `volume` 0.18 to 0.22 (about -14 dB under narration), `endTime` = project end, `fadeIn` 1, `fadeOut` 2.5.
 5. **Review:** `get_timeline_contact_sheet` with `at: "auto"`, plus `view_frame` on anything doubtful. Check caption sync, music level, style drift, visible loops.
 6. **Export** only when the creator asked for the finished film: `export_video` (`mp4`, `1080p`), then `get_export_status` for the file path.
